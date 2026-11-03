@@ -169,6 +169,52 @@ app.get("/api/payments/status/:reference", async (req, res) => {
         });
     }
 });
+app.get("/api/payments/status/:reference", async (req, res) => {
+    try {
+        const reference = req.params.reference;
+
+        if (!/^MT-\d+$/.test(reference)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid payment reference."
+            });
+        }
+
+        const response = await fetch(
+            "https://backend.payhero.co.ke/api/v2/transaction-status?reference=" +
+            encodeURIComponent(reference),
+            {
+                method: "GET",
+                headers: {
+                    Authorization: "Basic " + process.env.PAYHERO_AUTH_TOKEN,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            return res.status(502).json({
+                success: false,
+                message: "Unable to check payment status."
+            });
+        }
+
+        res.json({
+            success: true,
+            payment: result
+        });
+
+    } catch (error) {
+        console.error("Status check error:", error.message);
+
+        res.status(500).json({
+            success: false,
+            message: "Payment status service unavailable."
+        });
+    }
+});
 app.post("/api/payments/callback", (req, res) => {
     console.log("PayHero callback received.");
     res.status(200).json({ received: true });
