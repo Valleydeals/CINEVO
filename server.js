@@ -194,13 +194,22 @@ app.get("/api/payments/status/:reference", async (req, res) => {
 
         const result = await response.json();
 
-        if (!response.ok) {
-            return res.status(502).json({
-                success: false,
-                message: "Unable to check payment status."
-            });
-        }
+        if (response.status === 404) {
+    return res.status(404).json({
+        success: false,
+        status: "NOT_FOUND",
+        message: "No transaction was found for this reference."
+    });
+}
 
+if (!response.ok) {
+    console.error("PayHero status error:", result);
+
+    return res.status(502).json({
+        success: false,
+        message: "Unable to check payment status."
+    });
+}
         res.json({
             success: true,
             payment: result
