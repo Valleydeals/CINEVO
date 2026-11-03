@@ -112,7 +112,63 @@ app.post("/api/payments/stkpush", async (req, res) => {
         });
     }
 });
+// Check payment status directly with PayHero
+app.get("/api/payments/status/:reference", async (req, res) => {
+    try {
+        const reference = req.params.reference;
 
+        if (!reference || !/^MT-\d+$/.test(reference)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid payment reference."
+            });
+        }
+
+        if (!process.env.PAYHERO_AUTH_TOKEN) {
+            return res.status(500).json({
+                success: false,
+                message: "Payment configuration is incomplete."
+            });
+        }
+
+        const response = await fetch(
+            "https://backend.payhero.co.ke/api/v2/transaction-status?reference=" +
+            encodeURIComponent(reference),
+            {
+                method: "GET",
+                headers: {
+                    Authorization:
+                        "Basic " + process.env.PAYHERO_AUTH_TOKEN,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            console.error("PayHero status error:", result);
+
+            return res.status(502).json({
+                success: false,
+                message: "Unable to check payment status."
+            });
+        }
+
+        return res.json({
+            success: true,
+            payment: result
+        });
+
+    } catch (error) {
+        console.error("Status check error:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: "Payment status service unavailable."
+        });
+    }
+});
 app.post("/api/payments/callback", (req, res) => {
     console.log("PayHero callback received.");
     res.status(200).json({ received: true });
