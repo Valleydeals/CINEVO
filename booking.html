@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Booking | MatchTickets</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            MATCH<span>TICKETS</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tickets">Tickets</a>
+        </nav>
+
+        <a href="index.html#tickets" class="nav-button">
+            Change Ticket
+        </a>
+    </header>
+
+    <main class="booking-page">
+
+        <div class="booking-heading">
+            <p class="section-label">YOUR MATCHDAY EXPERIENCE</p>
+            <h1>Complete Your Booking</h1>
+            <p>Enter your details and review your booking.</p>
+        </div>
+
+        <div class="booking-layout">
+
+            <section class="booking-form">
+                <h2>Customer Details</h2>
+
+                <form id="booking-page-form">
+
+                    <label for="customer-name">Full Name</label>
+                    <input
+                        type="text"
+                        id="customer-name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                    <label for="customer-phone">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="customer-phone"
+                        placeholder="e.g. 0712345678"
+                        required
+                    >
+
+                    <label for="customer-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="customer-email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                    <label for="ticket-quantity">Number of Tickets</label>
+                    <input
+                        type="number"
+                        id="ticket-quantity"
+                        min="1"
+                        max="10"
+                        value="1"
+                        required
+                    >
+
+                    <button type="submit" class="ticket-button">
+                        Confirm  Booking
+                    </button>
+
+                    <p id="booking-error" role="status"></p>
+                </form>
+            </section>
+
+            <aside class="booking-summary">
+                <p class="ticket-type">YOUR SELECTION</p>
+                <h2>Bayern Munich vs Ajax</h2>
+
+                <div class="summary-row">
+                    <span>Ticket Package</span>
+                    <strong id="summary-package">Not selected</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Price per ticket</span>
+                    <strong id="summary-price">KSh 0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Quantity</span>
+                    <strong id="summary-quantity">1</strong>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <strong id="summary-total">KSh 0</strong>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 MatchTickets  Website</p>
+    </footer>
+
+    <script src="booking.js"></script>
+</body>
+</html>
