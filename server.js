@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const { Pool } = require("pg");
 
 const app = express();
 
@@ -11,13 +12,48 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
+// PostgreSQL connection
+if (!process.env.DATABASE_URL) {
+    console.error("DATABASE_URL is missing.");
+    process.exit(1);
+}
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+// Test database connection
+app.get("/api/health", async (req, res) => {
+    try {
+        await pool.query("SELECT 1");
+
+        res.json({
+            success: true,
+            server: "online",
+            database: "connected"
+        });
+    } catch (error) {
+        console.error("Database connection error:", error.message);
+
+        res.status(500).json({
+            success: false,
+            server: "online",
+            database: "disconnected"
+        });
+    }
+});
+
 app.get("/", (req, res) => {
     res.json({
         success: true,
-        message: "MatchTickets backend is running."
+        message: "Talanta Tickets backend is running."
     });
 });
 
+// PayHero STK Push
 app.post("/api/payments/stkpush", async (req, res) => {
     try {
         const { phone, packageName, quantity } = req.body;
@@ -51,9 +87,11 @@ app.post("/api/payments/stkpush", async (req, res) => {
             });
         }
 
-        if (!process.env.PAYHERO_AUTH_TOKEN ||
+        if (
+            !process.env.PAYHERO_AUTH_TOKEN ||
             !process.env.PAYHERO_CHANNEL_ID ||
-            !process.env.CALLBACK_URL) {
+            !process.env.CALLBACK_URL
+        ) {
             return res.status(500).json({
                 success: false,
                 message: "Payment configuration is incomplete."
@@ -78,7 +116,7 @@ app.post("/api/payments/stkpush", async (req, res) => {
                     channel_id: Number(process.env.PAYHERO_CHANNEL_ID),
                     provider: "m-pesa",
                     external_reference: reference,
-                    customer_name: "MatchTickets Customer",
+                    customer_name: "Talanta Tickets Customer",
                     callback_url: process.env.CALLBACK_URL
                 })
             }
@@ -112,7 +150,8 @@ app.post("/api/payments/stkpush", async (req, res) => {
         });
     }
 });
-// Check payment status directly with PayHero
+
+// Check payment status with PayHero
 app.get("/api/payments/status/:reference", async (req, res) => {
     try {
         const reference = req.params.reference;
@@ -146,6 +185,14 @@ app.get("/api/payments/status/:reference", async (req, res) => {
 
         const result = await response.json();
 
+        if (response.status === 404) {
+            return res.status(404).json({
+                success: false,
+                status: "NOT_FOUND",
+                message: "No transaction was found for this reference."
+            });
+        }
+
         if (!response.ok) {
             console.error("PayHero status error:", result);
 
@@ -169,66 +216,20 @@ app.get("/api/payments/status/:reference", async (req, res) => {
         });
     }
 });
-app.get("/api/payments/status/:reference", async (req, res) => {
-    try {
-        const reference = req.params.reference;
 
-        if (!/^MT-\d+$/.test(reference)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid payment reference."
-            });
-        }
-
-        const response = await fetch(
-            "https://backend.payhero.co.ke/api/v2/transaction-status?reference=" +
-            encodeURIComponent(reference),
-            {
-                method: "GET",
-                headers: {
-                    Authorization: "Basic " + process.env.PAYHERO_AUTH_TOKEN,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
-
-        const result = await response.json();
-
-        if (response.status === 404) {
-    return res.status(404).json({
-        success: false,
-        status: "NOT_FOUND",
-        message: "No transaction was found for this reference."
-    });
-}
-
-if (!response.ok) {
-    console.error("PayHero status error:", result);
-
-    return res.status(502).json({
-        success: false,
-        message: "Unable to check payment status."
-    });
-}
-        res.json({
-            success: true,
-            payment: result
-        });
-
-    } catch (error) {
-        console.error("Status check error:", error.message);
-
-        res.status(500).json({
-            success: false,
-            message: "Payment status service unavailable."
-        });
-    }
-});
+// PayHero callback placeholder
 app.post("/api/payments/callback", (req, res) => {
     console.log("PayHero callback received.");
     res.status(200).json({ received: true });
 });
 
-app.listen(PORT, () => {
-    console.log("MatchTickets backend running on port " + PORT);
+app.listen(PORT, async () => {
+    console.log("Talanta Tickets backend running on port " + PORT);
+
+    try {
+        await pool.query("SELECT 1");
+        console.log("PostgreSQL database connected successfully.");
+    } catch (error) {
+        console.error("PostgreSQL connection failed:", error.message);
+    }
 });
