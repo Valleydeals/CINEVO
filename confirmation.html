@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Confirmation | MatchTickets</title>
+    <meta name="description" content="View your MatchTickets booking details and payment status.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            MATCH<span>TICKETS</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tickets">Tickets</a>
+        </nav>
+    </header>
+
+    <main class="confirmation-page">
+
+        <!-- PAGE INTRODUCTION -->
+        <div class="booking-heading">
+            <p class="section-label">MATCHTICKETS • BOOKING CENTER</p>
+            <h1>Your Booking Details</h1>
+            <p>Review your booking and check your payment status below.</p>
+        </div>
+
+        <div class="confirmation-card">
+
+            <!-- PAYMENT STATUS -->
+            <section class="payment-status-section">
+
+                <div class="confirmation-icon" id="payment-icon">
+                    ⏳
+                </div>
+
+                <p class="section-label">PAYMENT STATUS</p>
+
+                <h2 id="payment-heading">Payment Pending</h2>
+
+                <p class="confirmation-description" id="payment-description">
+                    Check your phone for the M-Pesa payment prompt.
+                    Enter your M-Pesa PIN to complete your payment.
+                </p>
+
+                <div class="reference-box">
+                    <span>YOUR BOOKING REFERENCE</span>
+                    <h2 id="confirm-reference">Loading...</h2>
+                </div>
+
+                <p id="payment-notice">
+                    Your booking is awaiting payment verification.
+                    Tickets are not yet confirmed.
+                </p>
+
+            </section>
+
+            <!-- MATCH INFORMATION -->
+            <section class="match-confirmation">
+
+                <p class="ticket-type">YOUR MATCH</p>
+
+                <h2>AJAX <span>VS</span> BAYERN MUNICH</h2>
+
+                <p>FOOTBALL MATCH • OFFICIAL TICKET BOOKING</p>
+
+            </section>
+
+            <!-- CUSTOMER INFORMATION -->
+            <section class="confirmation-details">
+
+                <div class="details-heading">
+                    <h2>Booking Information</h2>
+                    <p>Customer and ticket details</p>
+                </div>
+
+                <div class="summary-row">
+                    <span>Customer Name</span>
+                    <strong id="confirm-name">—</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Phone Number</span>
+                    <strong id="confirm-phone">—</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Email Address</span>
+                    <strong id="confirm-email">—</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Ticket Package</span>
+                    <strong id="confirm-package">—</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Number of Tickets</span>
+                    <strong id="confirm-quantity">—</strong>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total Amount</span>
+                    <strong id="confirm-total">—</strong>
+                </div>
+
+            </section>
+
+            <!-- CUSTOMER ACTIONS -->
+            <section class="confirmation-actions">
+
+                <button onclick="window.print()" class="ticket-button">
+                    Print Booking Details
+                </button>
+
+                <a href="index.html" class="back-home">
+                    Return to Homepage
+                </a>
+
+            </section>
+
+            <!-- IMPORTANT INFORMATION -->
+            <div class="Customer-notice">
+                <strong>Important:</strong>
+                A payment request being sent does not mean payment is complete.
+                Your booking becomes confirmed only after successful payment
+                verification by MatchTickets.
+            </div>
+
+        </div>
+
+        <p class="confirmation-support">
+            Need assistance? Contact MatchTickets customer support.
+        </p>
+
+    </main>
+
+    <footer>
+        <p>© 2026 MatchTickets. All rights reserved.</p>
+        <p>Fast • Secure • Reliable</p>
+    </footer>
+
+    <script src="confirmation.js"></script>
+
+</body>
+</html>
