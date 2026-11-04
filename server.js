@@ -75,7 +75,13 @@ app.get("/", (req, res) => {
 // PayHero STK Push
 app.post("/api/payments/stkpush", async (req, res) => {
     try {
-        const { phone, packageName, quantity } = req.body;
+     const { name, email, phone, packageName, quantity } = req.body;
+        if (!name || !email) {
+    return res.status(400).json({
+        success: false,
+        message: "Customer name and email are required."
+    });
+        }
 
         const prices = {
             Regular: 2500,
@@ -119,7 +125,30 @@ app.post("/api/payments/stkpush", async (req, res) => {
 
         const amount = prices[packageName] * qty;
         const reference = "MT-" + Date.now();
-
+        await pool.query(
+    `INSERT INTO bookings (
+        reference,
+        customer_name,
+        phone,
+        email,
+        package_name,
+        quantity,
+        unit_price,
+        total_amount,
+        payment_status
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    [
+        reference,
+        name.trim(),
+        phone,
+        email.trim().toLowerCase(),
+        packageName,
+        qty,
+        prices[packageName],
+        amount,
+        "PENDING"
+    ]
+);
         const response = await fetch(
             "https://backend.payhero.co.ke/api/v2/payments",
             {
