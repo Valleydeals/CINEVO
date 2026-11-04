@@ -77,6 +77,13 @@ app.post("/api/payments/stkpush", async (req, res) => {
     try {
      const { name, email, phone, packageName, quantity } = req.body;
         if (!name || !email) {
+            console.log("Booking request received:", {
+    name,
+    email,
+    phone,
+    packageName,
+    quantity
+});
     return res.status(400).json({
         success: false,
         message: "Customer name and email are required."
