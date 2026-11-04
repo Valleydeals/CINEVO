@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Talanta Tickets | Bayern Munich vs Ajax</title>
+
+    <meta name="description" content="Book your match tickets for Bayern Munich vs Ajax. Choose your ticket package and prepare for an unforgettable football experience.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- SCROLLING BOOKING MARQUEE -->
+<div class="booking-marquee">
+    <div class="marquee-track" id="marquee-track">
+        <span>Brian selected a Regular ticket</span>
+        <span>Amos customer explored Premium</span>
+        <span>Jesca checked the VIP package</span>
+        <span>Explore your matchday experience</span>
+        <span>:Kelvin viewed Regular tickets</span>
+
+        <!-- Duplicate messages for continuous scrolling -->
+        <span> David selected a Regular ticket</span>
+        <span>Michelle explored Premium</span>
+        <span>Nelly checked the VIP package</span>
+        <span> Explore your matchday experience</span>
+        <span>Janet booked Regular tickets</span>
+    </div>
+</div>
+
+
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <a href="#home" class="logo">
+            MATCH<span>TICKETS</span>
+        </a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#match">The Match</a>
+            <a href="#tickets">Tickets</a>
+        </nav>
+
+        <a href="#tickets" class="nav-button">GET TICKETS</a>
+    </header>
+
+
+    <main id="home">
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="match">
+
+            <div class="hero-content">
+
+                <p class="tagline">
+                    <span class="live-dot"></span>
+                    THE BEAUTIFUL GAME STARTS HERE
+                </p>
+
+                <p class="hero-label">THE BIG FOOTBALL SHOWDOWN</p>
+
+                <h1>
+                    BAYERN<br>
+                    <span>VS</span> AJAX
+                </h1>
+
+                <p class="description">
+                    Two European football giants. One unforgettable
+                    football experience. Secure your seat and be part
+                    of the excitement.
+                </p>
+
+                <div class="match-info">
+                    <div>
+                        <span class="info-icon">⚽</span>
+                        <div>
+                            <small>EVENT</small>
+                            <strong>Football Match</strong>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="info-icon">📍</span>
+                        <div>
+                            <small>VENUE</small>
+                            <strong>Raila Odinga Stadium</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#tickets" class="primary-button">
+                    EXPLORE TICKETS →
+                </a>
+
+            </div>
+
+
+            <!-- TEAM SHOWCASE -->
+            <div class="match-card">
+
+                <p class="match-card-label">FEATURED MATCH</p>
+
+                <div class="team">
+                    <img src="Bayern.png"
+                         alt="Bayern Munich logo"
+                         class="team-logo">
+
+                    <h3>BAYERN MUNICH</h3>
+                </div>
+
+                <div class="versus">
+                    <span>VS</span>
+                    <p>THE SHOWDOWN</p>
+                </div>
+
+                <div class="team">
+                    <img src="Ajax.png"
+                         alt="Ajax logo"
+                         class="team-logo">
+
+                    <h3>AJAX</h3>
+                </div>
+
+                <div class="match-card-footer">
+                    <span>EUROPEAN FOOTBALL</span>
+                    <span>2026</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COUNTDOWN -->
+        <section class="ticket-countdown">
+
+            <div class="countdown-heading">
+                <p class="section-label">SAVE THE DATE</p>
+
+                <h2>OFFICIAL TICKET SALES OPENING</h2>
+
+                <p>Secure your seat for the big match!</p>
+            </div>
+
+            <div class="countdown">
+
+                <div>
+                    <span id="days">00</span>
+                    <small>DAYS</small>
+                </div>
+
+                <div>
+                    <span id="hours">00</span>
+                    <small>HOURS</small>
+                </div>
+
+                <div>
+                    <span id="minutes">00</span>
+                    <small>MINUTES</small>
+                </div>
+
+                <div>
+                    <span id="seconds">00</span>
+                    <small>SECONDS</small>
+                </div>
+
+            </div>
+
+            <p class="opening-date">
+                4 DECEMBER 2026 • 7:00 PM EAT
+            </p>
+
+        </section>
+
+
+        <!-- TICKETS SECTION -->
+        <section class="tickets-section" id="tickets">
+
+            <div class="tickets-heading">
+
+                <p class="section-label">CHOOSE YOUR EXPERIENCE</p>
+
+                <h2>GET YOUR MATCH TICKET</h2>
+
+                <p>
+                    Choose your preferred package and get ready
+                    for an unforgettable matchday experience.
+                </p>
+
+            </div>
+
+
+            <div class="ticket-grid">
+
+                <!-- REGULAR -->
+                <div class="ticket-card">
+
+                    <p class="ticket-type">STANDARD EXPERIENCE</p>
+
+                    <h3>Regular</h3>
+
+                    <p class="ticket-price">
+                        <span>KSh</span> 2,500
+                    </p>
+
+                    <div class="ticket-divider"></div>
+
+                    <ul>
+                        <li>✓ General seating</li>
+                        <li>✓ Digital booking details</li>
+                        <li>✓ Matchday atmosphere</li>
+                    </ul>
+
+                    <button class="ticket-button"
+                        onclick="selectTicket('Regular', 2500)">
+                        SELECT REGULAR
+                    </button>
+
+                </div>
+
+
+                <!-- PREMIUM -->
+                <div class="ticket-card featured-ticket">
+
+                    <span class="popular-label">
+                        PREMIUM CHOICE
+                    </span>
+
+                    <p class="ticket-type">ENHANCED EXPERIENCE</p>
+
+                    <h3>Premium</h3>
+
+                    <p class="ticket-price">
+                        <span>KSh</span> 5,000
+                    </p>
+
+                    <div class="ticket-divider"></div>
+
+                    <ul>
+                        <li>✓ Better seating category</li>
+                        <li>✓ Digital booking details</li>
+                        <li>✓ Priority-style booking</li>
+                    </ul>
+
+                    <button class="ticket-button"
+                        onclick="selectTicket('Premium', 5000)">
+                        SELECT PREMIUM
+                    </button>
+
+                </div>
+
+
+                <!-- VIP -->
+                <div class="ticket-card">
+
+                    <p class="ticket-type">LUXURY EXPERIENCE</p>
+
+                    <h3>VIP</h3>
+
+                    <p class="ticket-price">
+                        <span>KSh</span> 10,000
+                    </p>
+
+                    <div class="ticket-divider"></div>
+
+                    <ul>
+                        <li>✓ VIP-style package</li>
+                        <li>✓ Digital booking details</li>
+                        <li>✓ Premium experience concept</li>
+                    </ul>
+
+                    <button class="ticket-button"
+                        onclick="selectTicket('VIP', 10000)">
+                        SELECT VIP
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SELECTED TICKET MESSAGE -->
+            <div id="selected-ticket" class="selection-message"></div>
+
+        </section>
+
+
+        <!-- TRUST SECTION -->
+        <section class="trust-section">
+
+            <div>
+                <span>🔒</span>
+                <h3>Secure Booking</h3>
+                <p>Payment verification before ticket confirmation.</p>
+            </div>
+
+            <div>
+                <span>📱</span>
+                <h3>M-Pesa Payments</h3>
+                <p>Convenient mobile payment options.</p>
+            </div>
+
+            <div>
+                <span>🎟️</span>
+                <h3>Digital Booking</h3>
+                <p>Keep your booking details accessible.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+
+        <a href="#home" class="logo">
+            MATCH<span>TICKETS</span>
+        </a>
+
+        <p>YOUR MATCHDAY. YOUR EXPERIENCE.</p>
+
+        <p>© 2026 MatchTickets. All rights reserved.</p>
+
+        <a href="#home">Back to top ↑</a>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
