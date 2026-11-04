@@ -24,6 +24,64 @@
             font-size: 12px;
         }
 
+        /* LOGIN SCREEN */
+
+        .admin-login {
+            width: min(420px, 92%);
+            margin: 70px auto;
+        }
+
+        .admin-login-card {
+            background: #111b2b;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 14px;
+            padding: 28px;
+        }
+
+        .admin-login-card h1 {
+            margin: 12px 0;
+        }
+
+        .admin-login-card > p {
+            color: #b8c1d1;
+        }
+
+        .admin-login-card form {
+            display: grid;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .admin-login-card label {
+            color: #dce5f5;
+            font-size: 14px;
+        }
+
+        .admin-login-card input {
+            width: 100%;
+            padding: 13px;
+            background: #080d18;
+            color: white;
+            border: 1px solid #344156;
+            border-radius: 7px;
+            font: inherit;
+        }
+
+        .admin-login-card button {
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #e63750;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #admin-login-message {
+            color: #ff667a;
+            font-size: 13px;
+        }
+
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -228,12 +286,57 @@
     <span class="admin-label">ADMIN PANEL</span>
 </header>
 
-<main class="admin-dashboard">
+<!-- ADMIN LOGIN -->
+
+<section id="admin-login" class="admin-login">
+    <div class="admin-login-card">
+
+        <p class="admin-label">TALANTA TICKETS</p>
+        <h1>Admin Login</h1>
+        <p>Sign in to manage your ticket bookings.</p>
+
+        <form id="admin-login-form">
+
+            <label for="admin-username">Username</label>
+            <input
+                type="text"
+                id="admin-username"
+                placeholder="Enter username"
+                autocomplete="username"
+                required
+            >
+
+            <label for="admin-password">Password</label>
+            <input
+                type="password"
+                id="admin-password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" id="admin-login-button">
+                Login
+            </button>
+
+            <p id="admin-login-message" role="alert"></p>
+
+        </form>
+    </div>
+</section>
+
+<!-- ADMIN DASHBOARD -->
+
+<main class="admin-dashboard" id="admin-dashboard">
 
     <div class="admin-heading">
         <p class="section-label">MANAGEMENT SYSTEM</p>
         <h1>Admin Dashboard</h1>
         <p>Manage ticket bookings and check payment status.</p>
+
+        <button id="admin-logout" type="button">
+            Logout
+        </button>
     </div>
 
     <div class="admin-notice" role="status">
@@ -287,6 +390,7 @@
         </div>
 
         <div class="booking-filters" aria-label="Filter bookings">
+
             <button class="filter-btn active"
                     data-status="All" type="button">
                 All
@@ -306,6 +410,7 @@
                     data-status="Cancelled" type="button">
                 Cancelled
             </button>
+
         </div>
 
         <div class="table-container">
@@ -324,17 +429,29 @@
 
                 <tbody id="admin-bookings-list">
                     <tr>
-                        <td colspan="7">
-                            Loading bookings...
-                        </td>
+                        <td colspan="7">Loading bookings...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
+        <div>
+            <button id="previous-page" type="button">
+                Previous
+            </button>
+
+            <span id="page-info">Page 1 of 1</span>
+
+            <button id="next-page" type="button">
+                Next
+            </button>
+        </div>
+
     </section>
 
 </main>
+
+<!-- BOOKING DETAILS MODAL -->
 
 <div
     id="booking-modal"
