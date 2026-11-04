@@ -24,7 +24,26 @@ const pool = new Pool({
         rejectUnauthorized: false
     }
 });
+// Create bookings table
+async function initializeDatabase() {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS bookings (
+            id BIGSERIAL PRIMARY KEY,
+            reference VARCHAR(100) UNIQUE NOT NULL,
+            customer_name VARCHAR(150) NOT NULL,
+            phone VARCHAR(20) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            package_name VARCHAR(30) NOT NULL,
+            quantity INTEGER NOT NULL,
+            unit_price INTEGER NOT NULL,
+            total_amount INTEGER NOT NULL,
+            payment_status VARCHAR(30) NOT NULL DEFAULT 'PENDING',
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+    `);
 
+    console.log("Bookings table is ready.");
+}
 // Test database connection
 app.get("/api/health", async (req, res) => {
     try {
