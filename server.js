@@ -246,9 +246,10 @@ app.listen(PORT, async () => {
     console.log("Talanta Tickets backend running on port " + PORT);
 
     try {
+        await initializeDatabase();
         await pool.query("SELECT 1");
         console.log("PostgreSQL database connected successfully.");
     } catch (error) {
-        console.error("PostgreSQL connection failed:", error.message);
+        console.error("Database initialization failed:", error.message);
     }
 });
