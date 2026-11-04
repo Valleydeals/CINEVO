@@ -71,7 +71,112 @@ app.get("/", (req, res) => {
         message: "Talanta Tickets backend is running."
     });
 });
+// ADMIN AUTHENTICATION
 
+const crypto = require("crypto");
+
+function safeCompare(a, b) {
+    const first = Buffer.from(String(a));
+    const second = Buffer.from(String(b));
+
+    return first.length === second.length &&
+        crypto.timingSafeEqual(first, second);
+}
+
+// Verify admin username and password
+app.post("/api/admin/login", (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if (!process.env.ADMIN_USERNAME ||
+            !process.env.ADMIN_PASSWORD) {
+            return res.status(500).json({
+                success: false,
+                message: "Admin credentials are not configured."
+            });
+        }
+
+        const validUsername = safeCompare(
+            username || "",
+            process.env.ADMIN_USERNAME
+        );
+
+        const validPassword = safeCompare(
+            password || "",
+            process.env.ADMIN_PASSWORD
+        );
+
+        if (!validUsername || !validPassword) {
+            return res.status(401).json({
+                success: false,
+                message: "Incorrect username or password."
+            });
+        }
+
+        return res.json({
+            success: true,
+            message: "Admin credentials verified."
+        });
+
+    } catch (error) {
+        console.error("Admin login error:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: "Login service unavailable."
+        });
+    }
+});
+// ADMIN AUTHORIZATION
+
+function requireAdmin(req, res, next) {
+    const authHeader = req.headers.authorization || "";
+
+    if (!authHeader.startsWith("Basic ")) {
+        return res.status(401).json({
+            success: false,
+            message: "Admin authentication required."
+        });
+    }
+
+    let credentials;
+
+    try {
+        credentials = Buffer.from(
+            authHeader.slice(6),
+            "base64"
+        ).toString("utf8");
+    } catch {
+        return res.status(401).json({
+            success: false,
+            message: "Invalid authentication."
+        });
+    }
+
+    const separator = credentials.indexOf(":");
+
+    if (separator < 0) {
+        return res.status(401).json({
+            success: false,
+            message: "Invalid authentication."
+        });
+    }
+
+    const username = credentials.slice(0, separator);
+    const password = credentials.slice(separator + 1);
+
+    if (
+        !safeCompare(username, process.env.ADMIN_USERNAME || "") ||
+        !safeCompare(password, process.env.ADMIN_PASSWORD || "")
+    ) {
+        return res.status(401).json({
+            success: false,
+            message: "Invalid admin credentials."
+        });
+    }
+
+    next();
+}
 // PayHero STK Push
 app.post("/api/payments/stkpush", async (req, res) => {
     try {
@@ -277,7 +382,38 @@ app.post("/api/payments/callback", (req, res) => {
     console.log("PayHero callback received.");
     res.status(200).json({ received: true });
 });
+// ADMIN: GET BOOKINGS FROM POSTGRESQL
+app.get("/api/admin/bookings", requireAdmin, async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT
+                reference,
+                customer_name,
+                phone,
+                email,
+                package_name,
+                quantity,
+                unit_price,
+                total_amount,
+                payment_status,
+                created_at
+            FROM bookings
+            ORDER BY created_at DESC
+        `);
 
+        res.json({
+            success: true,
+            bookings: result.rows
+        });
+    } catch (error) {
+        console.error("Admin bookings error:", error.message);
+
+        res.status(500).json({
+            success: false,
+            message: "Could not load bookings."
+        });
+    }
+});
 app.listen(PORT, async () => {
     console.log("Talanta Tickets backend running on port " + PORT);
 
