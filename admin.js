@@ -445,3 +445,37 @@ document.getElementById("refresh-dashboard").addEventListener(
         }
     }
 );
+// THREE-DOT ADMIN MENU
+
+const menuButton = document.getElementById("admin-menu-button");
+const menuDropdown = document.getElementById("admin-menu-dropdown");
+
+menuButton.addEventListener("click", function () {
+    menuDropdown.classList.toggle("open");
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        menuDropdown.classList.contains("open") ? "true" : "false"
+    );
+});
+
+// CLOSE MENU WHEN CLICKING OUTSIDE
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".admin-menu")) {
+        menuDropdown.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+    }
+});
+
+// MENU LOGOUT
+document.getElementById("menu-logout").addEventListener("click", function () {
+    adminCredentials = null;
+
+    dashboard.style.display = "none";
+    loginSection.style.display = "block";
+
+    loginMessage.textContent = "";
+    loginForm.reset();
+
+    menuDropdown.classList.remove("open");
+});
