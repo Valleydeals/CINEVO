@@ -107,7 +107,63 @@
 
         </div>
     </main>
+<!-- MPESA PAYMENT MODAL -->
 
+<div id="payment-modal" class="payment-modal">
+    <div class="payment-modal-content">
+
+        <div class="payment-modal-header">
+            <h2>TALANTA<span>TICKETS</span></h2>
+            <button type="button" id="close-payment-modal"
+                aria-label="Close payment window">&times;</button>
+        </div>
+
+        <div class="payment-icon">
+            <span>📱</span>
+        </div>
+
+        <h2>Check Your Phone</h2>
+
+        <p class="payment-description">
+            An M-Pesa payment request has been sent to your phone.
+        </p>
+
+        <div class="payment-amount">
+            <span>Amount to pay</span>
+            <h1 id="payment-modal-amount">KSh 0</h1>
+        </div>
+
+        <div class="payment-reference">
+            <span>Booking Reference</span>
+            <strong id="payment-modal-reference">—</strong>
+        </div>
+
+        <div class="payment-status-box">
+            <span class="payment-status-dot"></span>
+            <strong id="payment-modal-status">
+                Awaiting payment
+            </strong>
+        </div>
+
+        <div class="payment-instructions">
+            <h3>What to do next</h3>
+            <p>1. Check your phone for the M-Pesa prompt.</p>
+            <p>2. Enter your M-Pesa PIN.</p>
+            <p>3. Wait for payment verification.</p>
+        </div>
+
+        <p class="payment-security-note">
+            Your booking is not confirmed until payment is verified.
+        </p>
+
+        <button type="button" id="check-payment-status">
+            Check Payment Status
+        </button>
+
+        <p id="payment-modal-message"></p>
+
+    </div>
+</div>
     <footer>
         <p>© 2026 MatchTickets  Website</p>
     </footer>
