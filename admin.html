@@ -333,12 +333,33 @@
         TALANTA<span>TICKETS</span>
     </a>
 
-    <nav>
-        <a href="index.html">Homepage</a>
-        <a href="booking.html">Booking</a>
-    </nav>
-
     <span class="admin-label">ADMIN PANEL</span>
+
+    <div class="admin-menu">
+        <button
+            type="button"
+            class="admin-menu-button"
+            id="admin-menu-button"
+            aria-label="Open admin menu"
+            aria-expanded="false"
+        >⋮</button>
+
+        <div class="admin-menu-dropdown" id="admin-menu-dropdown">
+
+            <a href="admin.html">Dashboard / Bookings</a>
+
+            <a href="admin-payments.html">Payments Received</a>
+
+            <a href="index.html">Homepage</a>
+
+            <a href="booking.html">Booking Page</a>
+
+            <button type="button" id="menu-logout">
+                Logout
+            </button>
+
+        </div>
+    </div>
 </header>
 
 <!-- ADMIN LOGIN -->
