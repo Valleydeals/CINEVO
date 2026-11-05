@@ -44,6 +44,13 @@ async function initializeDatabase() {
 
     console.log("Bookings table is ready.");
 }
+await pool.query(`
+    ALTER TABLE bookings
+    ADD COLUMN IF NOT EXISTS payhero_reference VARCHAR(150),
+    ADD COLUMN IF NOT EXISTS checkout_request_id VARCHAR(150),
+    ADD COLUMN IF NOT EXISTS mpesa_receipt VARCHAR(100),
+    ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ
+`);
 // Test database connection
 app.get("/api/health", async (req, res) => {
     try {
