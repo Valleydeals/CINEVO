@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments | Talanta Tickets</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #172033;
+        }
+
+        header {
+            background: #101827;
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        header h2 {
+            font-size: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 12px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #0000000d;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 23px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        input, select, button {
+            padding: 11px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: #2563eb;
+            color: white;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px #0000000d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1050px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #475569;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .failed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        #message {
+            margin: 15px 0;
+            color: #475569;
+        }
+
+        @media(max-width: 800px) {
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 420px) {
+            .summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>Talanta Tickets | Payments</h2>
+
+    <nav>
+        <a href="admin.html">Bookings</a>
+        <a href="admin-payments.html">Payments</a>
+    </nav>
+</header>
+
+<main>
+
+    <h2 style="margin-bottom:20px;">Payments Received</h2>
+
+    <section class="summary">
+        <div class="card">
+            <p>Successful Payments</p>
+            <h3 id="successful-payments">0</h3>
+        </div>
+
+        <div class="card">
+            <p>Total Money Received</p>
+            <h3 id="total-received">KSh 0</h3>
+        </div>
+
+        <div class="card">
+            <p>Pending Payments</p>
+            <h3 id="pending-payments">0</h3>
+        </div>
+
+        <div class="card">
+            <p>Failed Payments</p>
+            <h3 id="failed-payments">0</h3>
+        </div>
+    </section>
+
+    <div class="toolbar">
+        <input
+            type="search"
+            id="payment-search"
+            placeholder="Search customer, phone, reference or receipt..."
+        >
+
+        <select id="payment-filter">
+            <option value="All">All Payments</option>
+            <option value="Successful">Successful</option>
+            <option value="Pending">Pending</option>
+            <option value="Failed">Failed</option>
+        </select>
+
+        <button id="refresh-payments">Refresh</button>
+        <button id="export-payments">Export CSV</button>
+    </div>
+
+    <p id="message">Please log in to view payments.</p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Booking Ref</th>
+                    <th>PayHero Ref</th>
+                    <th>Package</th>
+                    <th>Amount</th>
+                    <th>M-Pesa Receipt</th>
+                    <th>Status</th>
+                    <th>Payment Date</th>
+                </tr>
+            </thead>
+
+            <tbody id="payments-list">
+                <tr>
+                    <td colspan="9">Waiting for payment records...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script src="admin-payments.js"></script>
+
+</body>
+</html>
