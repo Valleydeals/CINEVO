@@ -13,7 +13,7 @@ function selectTicket(ticketName, ticketPrice) {
     sessionStorage.setItem("selectedTicket", ticketName);
     window.location.href = "booking.html";
 }
-const openingDate = new Date("2026-12-04T19:00:00+03:00").getTime();
+const openingDate = new Date("2026-11-05T18:00:00+03:00").getTime();
 
 const countdownTimer = setInterval(function () {
     const now = new Date().getTime();
