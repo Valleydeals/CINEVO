@@ -415,6 +415,69 @@ app.get("/api/admin/bookings", requireAdmin, async (req, res) => {
         });
     }
 });
+// ADMIN: VIEW PAYMENT RECORDS
+app.get("/api/admin/payments", requireAdmin, async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT
+                reference,
+                customer_name,
+                phone,
+                email,
+                package_name,
+                quantity,
+                total_amount,
+                payment_status,
+                payhero_reference,
+                checkout_request_id,
+                mpesa_receipt,
+                paid_at,
+                created_at
+            FROM bookings
+            ORDER BY
+                paid_at DESC NULLS LAST,
+                created_at DESC
+        `);
+
+        const summary = await pool.query(`
+            SELECT
+                COUNT(*) FILTER (
+                    WHERE UPPER(payment_status) IN
+                    ('SUCCESS', 'SUCCESSFUL', 'COMPLETED', 'PAID')
+                ) AS successful_payments,
+
+                COALESCE(SUM(total_amount) FILTER (
+                    WHERE UPPER(payment_status) IN
+                    ('SUCCESS', 'SUCCESSFUL', 'COMPLETED', 'PAID')
+                ), 0) AS total_received,
+
+                COUNT(*) FILTER (
+                    WHERE UPPER(payment_status) = 'PENDING'
+                ) AS pending_payments,
+
+                COUNT(*) FILTER (
+                    WHERE UPPER(payment_status) IN
+                    ('FAILED', 'CANCELLED', 'CANCELED')
+                ) AS failed_payments
+
+            FROM bookings
+        `);
+
+        res.json({
+            success: true,
+            payments: result.rows,
+            summary: summary.rows[0]
+        });
+
+    } catch (error) {
+        console.error("Admin payments error:", error.message);
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to retrieve payment records."
+        });
+    }
+});
 app.listen(PORT, async () => {
     console.log("Talanta Tickets backend running on port " + PORT);
 
