@@ -2444,3 +2444,193 @@ a {
         animation: none;
     }
 }
+
+/* TALANTA TICKETS PAYMENT MODAL */
+
+.payment-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 18px;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.payment-modal.show {
+    display: flex;
+}
+
+.payment-modal-content {
+    width: min(430px, 100%);
+    background: #111b2b;
+    color: white;
+    border: 1px solid #344156;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+.payment-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.payment-modal-header h2 {
+    font-size: 18px;
+    color: white;
+}
+
+.payment-modal-header h2 span {
+    color: #ff425b;
+}
+
+#close-payment-modal {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.payment-icon {
+    width: 75px;
+    height: 75px;
+    background: #173d35;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 18px;
+}
+
+.payment-icon span {
+    font-size: 35px;
+}
+
+.payment-modal-content > h2 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.payment-description {
+    color: #b8c1d1;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.payment-amount {
+    background: #1c2940;
+    border-radius: 12px;
+    padding: 18px;
+    margin: 22px 0;
+}
+
+.payment-amount span,
+.payment-reference span {
+    display: block;
+    color: #b8c1d1;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.payment-amount h1 {
+    color: #4ade80;
+    font-size: 30px;
+}
+
+.payment-reference {
+    text-align: left;
+    background: #080d18;
+    padding: 14px;
+    border-radius: 9px;
+    overflow-wrap: anywhere;
+}
+
+.payment-reference strong {
+    font-size: 14px;
+}
+
+.payment-status-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #3b2d16;
+    color: #fbbf24;
+    padding: 13px;
+    border-radius: 9px;
+    margin: 16px 0;
+    font-size: 13px;
+}
+
+.payment-status-dot {
+    width: 9px;
+    height: 9px;
+    background: #fbbf24;
+    border-radius: 50%;
+}
+
+.payment-instructions {
+    background: #1c2940;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: left;
+    margin-top: 18px;
+}
+
+.payment-instructions h3 {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.payment-instructions p {
+    color: #dce5f5;
+    font-size: 13px;
+    margin: 9px 0;
+    line-height: 1.5;
+}
+
+.payment-security-note {
+    color: #aab6c8;
+    font-size: 12px;
+    margin: 17px 0;
+    line-height: 1.5;
+}
+
+#check-payment-status {
+    width: 100%;
+    padding: 14px;
+    background: #e63750;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#check-payment-status:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+#payment-modal-message {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #b8c1d1;
+    overflow-wrap: anywhere;
+}
+
+@media(max-width: 420px) {
+    .payment-modal-content {
+        padding: 19px;
+    }
+
+    .payment-amount h1 {
+        font-size: 26px;
+    }
+}
