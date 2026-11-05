@@ -186,13 +186,25 @@ bookingForm.addEventListener("submit", async function(event) {
             JSON.stringify(existingBookings)
         );
 
-        alert(
-            "M-Pesa request submitted.\n\n" +
-            "Check your phone for the STK Push prompt.\n" +
-            "Amount: " + formatKES(result.amount) +
-            "\nReference: " + result.reference +
-            "\n\nYour booking is awaiting payment verification."
-        );
+        // OPEN THE CUSTOM PAYMENT MODAL
+
+const paymentModal = document.getElementById("payment-modal");
+
+document.getElementById("payment-modal-amount").textContent =
+    formatKES(result.amount);
+
+document.getElementById("payment-modal-reference").textContent =
+    result.reference;
+
+document.getElementById("payment-modal-status").textContent =
+    "Awaiting payment";
+
+document.getElementById("payment-modal-message").textContent =
+    "Check your phone and complete the M-Pesa payment.";
+
+paymentModal.classList.add("show");
+
+submitButton.textContent = "Payment Request Sent";
 
         window.location.href = "confirmation.html";
 
@@ -203,3 +215,10 @@ bookingForm.addEventListener("submit", async function(event) {
         submitButton.textContent = "Pay Now";
     }
 });
+// CLOSE PAYMENT MODAL
+
+document.getElementById("close-payment-modal")
+    .addEventListener("click", function () {
+        document.getElementById("payment-modal")
+            .classList.remove("show");
+    });
