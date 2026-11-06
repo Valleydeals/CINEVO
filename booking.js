@@ -223,3 +223,95 @@ document.getElementById("close-payment-modal")
     .addEventListener("click", function () {
         window.location.href = "confirmation.html";
     });
+// CHECK PAYMENT STATUS
+
+const checkPaymentButton = document.getElementById(
+    "check-payment-status"
+);
+
+checkPaymentButton.addEventListener("click", async function () {
+
+    const booking = JSON.parse(
+        sessionStorage.getItem("matchTicketBooking") || "null"
+    );
+
+    const statusDisplay = document.getElementById(
+        "payment-modal-status"
+    );
+
+    const messageDisplay = document.getElementById(
+        "payment-modal-message"
+    );
+
+    if (!booking || !booking.reference) {
+        messageDisplay.textContent =
+            "Booking reference not found. Please try again.";
+        return;
+    }
+
+    checkPaymentButton.disabled = true;
+    checkPaymentButton.textContent = "Checking payment...";
+
+    messageDisplay.textContent =
+        "Contacting payment server. Please wait.";
+
+    try {
+        const response = await fetch(
+            API_URL + "/api/payments/status/" +
+            encodeURIComponent(booking.reference)
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.message || "Unable to check payment."
+            );
+        }
+
+        if (result.status === "SUCCESS") {
+
+            statusDisplay.textContent = "Payment Successful";
+
+            messageDisplay.textContent =
+                "Your payment has been verified. Your booking is confirmed.";
+
+            booking.status = "PAID";
+
+            sessionStorage.setItem(
+                "matchTicketBooking",
+                JSON.stringify(booking)
+            );
+
+            checkPaymentButton.textContent = "Payment Confirmed";
+
+        } else if (result.status === "FAILED") {
+
+            statusDisplay.textContent = "Payment Failed";
+
+            messageDisplay.textContent =
+                "Your payment was unsuccessful. Please contact support.";
+
+            checkPaymentButton.textContent = "Check Again";
+
+        } else {
+
+            statusDisplay.textContent = "Awaiting Payment";
+
+            messageDisplay.textContent =
+                "Payment has not yet been confirmed. Please wait and check again.";
+
+            checkPaymentButton.textContent = "Check Payment Status";
+        }
+
+    } catch (error) {
+
+        messageDisplay.textContent = error.message;
+
+        checkPaymentButton.textContent = "Check Payment Status";
+
+    } finally {
+
+        checkPaymentButton.disabled = false;
+    }
+});
