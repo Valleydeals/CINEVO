@@ -177,110 +177,119 @@
         </section>
 
 
-        <!-- TICKETS SECTION -->
-        <section class="tickets-section" id="tickets">
+        
+<!-- TICKETS SECTION -->
+<section class="tickets-section" id="tickets">
 
-            <div class="tickets-heading">
+    <div class="tickets-heading">
+        <p class="section-label">CHOOSE YOUR EXPERIENCE</p>
+        <h2>GET YOUR MATCH TICKET</h2>
+        <p>
+            Choose your preferred package and get ready
+            for an unforgettable matchday experience.
+        </p>
+    </div>
 
-                <p class="section-label">CHOOSE YOUR EXPERIENCE</p>
+    <div class="ticket-grid">
 
-                <h2>GET YOUR MATCH TICKET</h2>
+        <!-- REGULAR -->
+        <div class="ticket-card">
+            <p class="ticket-type">STANDARD EXPERIENCE</p>
+            <h3>Regular</h3>
+            <p class="ticket-price">
+                <span>KSh</span> 500
+            </p>
+            <div class="ticket-divider"></div>
+            <ul>
+                <li>✓ General admission</li>
+                <li>✓ Digital booking details</li>
+                <li>✓ Matchday atmosphere</li>
+            </ul>
+            <button class="ticket-button"
+                onclick="selectTicket('Regular', 500)">
+                SELECT REGULAR
+            </button>
+        </div>
 
-                <p>
-                    Choose your preferred package and get ready
-                    for an unforgettable matchday experience.
-                </p>
+        <!-- PREMIUM -->
+        <div class="ticket-card">
+            <p class="ticket-type">ENHANCED EXPERIENCE</p>
+            <h3>Premium</h3>
+            <p class="ticket-price">
+                <span>KSh</span> 1,000
+            </p>
+            <div class="ticket-divider"></div>
+            <ul>
+                <li>✓ Premium admission category</li>
+                <li>✓ Digital booking details</li>
+                <li>✓ Enhanced matchday experience</li>
+            </ul>
+            <button class="ticket-button"
+                onclick="selectTicket('Premium', 1000)">
+                SELECT PREMIUM
+            </button>
+        </div>
 
-            </div>
+        <!-- VIP -->
+        <div class="ticket-card featured-ticket">
+            <span class="popular-label">POPULAR CHOICE</span>
+            <p class="ticket-type">VIP EXPERIENCE</p>
+            <h3>VIP</h3>
+            <p class="ticket-price">
+                <span>KSh</span> 2,500
+            </p>
+            <div class="ticket-divider"></div>
+            <ul>
+                <li>✓ VIP admission category</li>
+                <li>✓ Digital booking details</li>
+                <li>✓ Exclusive experience concept</li>
+            </ul>
+            <button class="ticket-button"
+                onclick="selectTicket('VIP', 2500)">
+                SELECT VIP
+            </button>
+        </div>
 
+        <!-- EXECUTIVE -->
+        <div class="ticket-card">
+            <p class="ticket-type">EXECUTIVE EXPERIENCE</p>
+            <h3>Executive</h3>
+            <p class="ticket-price">
+                <span>KSh</span> 5,000
+            </p>
+            <div class="ticket-divider"></div>
+            <ul>
+                <li>✓ Executive package</li>
+                <li>✓ Digital booking details</li>
+                <li>✓ Enhanced matchday experience</li>
+            </ul>
+            <button class="ticket-button"
+                onclick="selectTicket('Executive', 5000)">
+                SELECT EXECUTIVE
+            </button>
+        </div>
 
-            <div class="ticket-grid">
+        <!-- VVIP -->
+        <div class="ticket-card">
+            <p class="ticket-type">EXCLUSIVE EXPERIENCE</p>
+            <h3>VVIP</h3>
+            <p class="ticket-price">
+                <span>KSh</span> 10,000
+            </p>
+            <div class="ticket-divider"></div>
+            <ul>
+                <li>✓ Exclusive VVIP package</li>
+                <li>✓ Digital booking details</li>
+                <li>✓ Premium matchday experience</li>
+            </ul>
+            <button class="ticket-button"
+                onclick="selectTicket('VVIP', 10000)">
+                SELECT VVIP
+            </button>
+        </div>
 
-                <!-- REGULAR -->
-                <div class="ticket-card">
+    </div>
 
-                    <p class="ticket-type">STANDARD EXPERIENCE</p>
-
-                    <h3>Regular</h3>
-
-                    <p class="ticket-price">
-                        <span>KSh</span> 2,500
-                    </p>
-
-                    <div class="ticket-divider"></div>
-
-                    <ul>
-                        <li>✓ General seating</li>
-                        <li>✓ Digital booking details</li>
-                        <li>✓ Matchday atmosphere</li>
-                    </ul>
-
-                    <button class="ticket-button"
-                        onclick="selectTicket('Regular', 2500)">
-                        SELECT REGULAR
-                    </button>
-
-                </div>
-
-
-                <!-- PREMIUM -->
-                <div class="ticket-card featured-ticket">
-
-                    <span class="popular-label">
-                        PREMIUM CHOICE
-                    </span>
-
-                    <p class="ticket-type">ENHANCED EXPERIENCE</p>
-
-                    <h3>Premium</h3>
-
-                    <p class="ticket-price">
-                        <span>KSh</span> 5,000
-                    </p>
-
-                    <div class="ticket-divider"></div>
-
-                    <ul>
-                        <li>✓ Better seating category</li>
-                        <li>✓ Digital booking details</li>
-                        <li>✓ Priority-style booking</li>
-                    </ul>
-
-                    <button class="ticket-button"
-                        onclick="selectTicket('Premium', 5000)">
-                        SELECT PREMIUM
-                    </button>
-
-                </div>
-
-
-                <!-- VIP -->
-                <div class="ticket-card">
-
-                    <p class="ticket-type">LUXURY EXPERIENCE</p>
-
-                    <h3>VIP</h3>
-
-                    <p class="ticket-price">
-                        <span>KSh</span> 10,000
-                    </p>
-
-                    <div class="ticket-divider"></div>
-
-                    <ul>
-                        <li>✓ VIP-style package</li>
-                        <li>✓ Digital booking details</li>
-                        <li>✓ Premium experience concept</li>
-                    </ul>
-
-                    <button class="ticket-button"
-                        onclick="selectTicket('VIP', 10000)">
-                        SELECT VIP
-                    </button>
-
-                </div>
-
-            </div>
 
 
             <!-- SELECTED TICKET MESSAGE -->
