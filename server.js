@@ -41,7 +41,13 @@ async function initializeDatabase() {
             created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
     `);
-
+    await pool.query(`
+        ALTER TABLE bookings
+        ADD COLUMN IF NOT EXISTS payhero_reference VARCHAR(100),
+        ADD COLUMN IF NOT EXISTS checkout_request_id VARCHAR(150),
+        ADD COLUMN IF NOT EXISTS mpesa_receipt VARCHAR(50),
+        ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ;
+    `);
     console.log("Bookings table is ready.");
 }
 
