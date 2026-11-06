@@ -1,9 +1,11 @@
 const API_URL = "https://cinevo-backend-b246.onrender.com";
 
 const ticketPrices = {
-    Regular: 2500,
-    Premium: 5000,
-    VIP: 10000
+    Regular: 500,
+    Premium: 1000,
+    VIP: 2500,
+    Executive: 5000,
+    VVIP: 10000
 };
 
 const bookingForm = document.getElementById("booking-page-form");
