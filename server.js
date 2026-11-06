@@ -197,10 +197,12 @@ app.post("/api/payments/stkpush", async (req, res) => {
         }
 
         const prices = {
-            Regular: 2500,
-            Premium: 5000,
-            VIP: 10000
-        };
+    Regular: 500,
+    Premium: 1000,
+    VIP: 2500,
+    Executive: 5000,
+    VVIP: 10000
+};
 
         if (!phone || !/^(2547|2541)\d{8}$/.test(phone)) {
             return res.status(400).json({
