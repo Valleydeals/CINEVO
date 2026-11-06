@@ -301,7 +301,26 @@ app.post("/api/payments/stkpush", async (req, res) => {
                 message: "Unable to initiate payment."
             });
         }
+        if (!result.success || !result.reference) {
+            console.error("Invalid PayHero response:", result);
 
+            return res.status(502).json({
+                success: false,
+                message: "PayHero did not return a valid payment reference."
+            });
+        }
+
+        await pool.query(
+            `UPDATE bookings
+             SET payhero_reference = $1,
+                 checkout_request_id = $2
+             WHERE reference = $3`,
+            [
+                result.reference,
+                result.CheckoutRequestID || null,
+                reference
+            ]
+        );
         res.json({
             success: true,
             message: "STK Push request submitted.",
