@@ -332,6 +332,23 @@ footer p + p {
     text-align: left;
 }
 
+/* Tablets */
+@media (max-width: 900px) {
+    .ticket-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+    .ticket-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 0 15px;
+    }
+}
+
 .ticket-card {
     position: relative;
     background: #111a2e;
