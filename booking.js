@@ -208,7 +208,7 @@ paymentModal.classList.add("show");
 
 submitButton.textContent = "Payment Request Sent";
 
-        window.location.href = "confirmation.html";
+        submitButton.disabled = false;
 
     } catch (error) {
         errorDisplay.textContent = error.message;
@@ -217,10 +217,9 @@ submitButton.textContent = "Payment Request Sent";
         submitButton.textContent = "Pay Now";
     }
 });
-// CLOSE PAYMENT MODAL
+// CLOSE PAYMENT MODAL AND CONTINUE
 
 document.getElementById("close-payment-modal")
     .addEventListener("click", function () {
-        document.getElementById("payment-modal")
-            .classList.remove("show");
+        window.location.href = "confirmation.html";
     });
